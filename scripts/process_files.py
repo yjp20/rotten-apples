@@ -5,6 +5,7 @@ Created on Sat Oct 15 19:28:49 2022
 key = bVBDxyqnmSkyQvWF8JTAm4nb0szv5Cy5gyivcysD
 @author: ryanm
 """
+#run this script in the scripts directory with the arg *.csv
 
 import cohere
 from cohere.classify import Example
