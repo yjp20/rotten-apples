@@ -16,8 +16,6 @@ import sys
 
 api_key = "bVBDxyqnmSkyQvWF8JTAm4nb0szv5Cy5gyivcysD"
 co = cohere.Client(api_key)
-examples = []
-inputs = []
 
 
 #summarize all csv files
@@ -26,19 +24,17 @@ inputs = []
 #done
 
 def read_files():
-    for urmom in sys.argv[1:]:
-        csv_functions.applyReview(urmom, urmom, csv_functions.summarizer, "summarized")
+    #for urmom in sys.argv[1:]:
+        #csv_functions.applyReview(urmom, urmom, csv_functions.summarizer, "summarized")
         #csv_functions.applyReview(urmom, urmom, csv_functions.classifier, "classifier")
-    df = pd.read_csv("reviews.csv")
-    for index, row in df.iterrows():
-        #print(index)
-        examples.append(Example(row['review_rating'], row['summarized']))
     for urmom in sys.argv[1:]:
-        df2 = pd.read_csv(urmom)
+        df = pd.read_csv(urmom)
+        examples = []
         for index, row in df.iterrows():
-            inputs.append(row['summarized'])
+            examples.append(Example('summarized', 'review_rating'))
+        inputs = list(df.loc[:, "summarized"])
+        print(inputs)
         csv_functions.classifier(urmom, urmom, inputs, examples, "classified")
-        inputs = []
     print(examples)
 
 if __name__ == '__main__':

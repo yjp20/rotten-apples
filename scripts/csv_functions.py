@@ -20,16 +20,16 @@ examples = [Example("1", "hello"), Example("2", "hello"), Example("3", "hi"), Ex
 def summarizer(inp, loop=True):
     idx, row = inp
     sin = row['review_text']
+    sin = sin[:2400]
     try:
-        sin = sin[:100]
         n_generations = 5
 
         prediction = co.generate(
-            model='68283aef-f7cf-4b9f-8a2c-b638932c8154-ft',
+            model='large',
             prompt=sin,
             return_likelihoods = 'GENERATION',
             stop_sequences=['"'],
-            max_tokens=30,
+            max_tokens=100,
             temperature=0.7,
             num_generations=n_generations,
             k=0,
@@ -50,23 +50,21 @@ def summarizer(inp, loop=True):
     except Exception as err:
         print(err)
         if loop:
-            return summarizer(row, false)
+            return summarizer(inp, False)
         else:
             return 0
     print(df['generation'].iat[0])
     return df['generation'].iat[0]
 
-#classifier function
 def classifier(filename, newFilename, ins, exs, columnName):
     print("classifying")
     response = co.classify(
       model='68283aef-f7cf-4b9f-8a2c-b638932c8154-ft',
       inputs=ins,
       examples=exs)
-    #fix return value
-    print(response.classifications)
-    return sin
-
+    df = pd.read_csv(filename)
+    df.loc[:, columnName] = [x.prediction for x in response.classifications]
+    df.to_csv(newFilename, index = False)
 
 #opens a csv file
 #creates a new column by applying function func to an existing column

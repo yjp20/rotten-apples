@@ -1,4 +1,5 @@
 <script>
+	import ReadMore from "$lib/ReadMore.svelte"
 	/** @type {import('./$types').PageData} */
 	export let data;
 
@@ -23,12 +24,15 @@
 			<div class="column show-desc">
 				<div class="content">
 					<h3 class="subtitle">Synopsis</h3>
-					<p> {@html show.desc} </p>
-					<h3 class="subtitle">Reviews</h3>
+					<p class="preline"><ReadMore text={show.desc} /></p>
+					<h3 class="subtitle">
+						Reviews{" "}
+						<a class="button is-small is-primary" href="/show/{show.id}/write">Add</a>
+					</h3>
 					{#each show.reviews as review}
 						<div class="box review">
-							<div class="review-author"><b>{review.author}</b></div>
-							<div class="review-desc">{review.review}</div>
+							<div class="review-author"><b>{review.author}</b> <span class="review-stars"><i class="fa-solid fa-star"></i> {review.old} {"→"} {review.rating}</span> </div>
+							<div class="review-desc preline"><ReadMore text={review.review}/></div>
 						</div>
 					{/each}
 				</div>
@@ -43,6 +47,14 @@
 		align-items: flex-end;
 	}
 
+	.review-author {
+		display: flex;
+	}
+
+	.review-stars {
+		margin-left: auto;
+	}
+
 
 	.show-image {
 	}
@@ -54,6 +66,10 @@
 
 	.show-info > span + span {
 		margin-left: 12px;
+	}
+
+	.preline {
+		white-space: pre-line;
 	}
 </style>
 
