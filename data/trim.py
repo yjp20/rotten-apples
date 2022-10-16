@@ -1,5 +1,6 @@
 import pandas as pd
 import sys
+import os
 
 #run this script with the arg *.csv in the data directory
 
@@ -16,6 +17,3 @@ def trim_files():
 def cat_trimmed():
     combined_csv = pd.concat([pd.read_csv(file) for file in sys.argv[1:]])
     combined_csv.to_csv("finetuning.csv", index=False, encoding='utf-8-sig')
-    
-trim_files()
-cat_trimmed()
