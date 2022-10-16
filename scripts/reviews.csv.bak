@@ -1,2 +1,4 @@
-rating,review_text,summarized,summarized2
-1,1,1,1
+review_rating,review_text,summarized
+1,hello,
+2,hi,
+3,yomama,
