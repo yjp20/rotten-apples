@@ -8,5 +8,4 @@ start_index = 20
 
 for a in range(start_index, len(anime_ids)):
     print(anime_ids[a])
-    #get_reviews(anime_ids[a], anime_names[a], 1000)
-    get_reviews(1, "Cowboy_Bebop", 1000)
+    get_reviews(anime_ids[a], anime_names[a], 1000)

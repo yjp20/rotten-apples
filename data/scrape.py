@@ -9,7 +9,7 @@ def review_link(anime_id, anime_name, page_num):
     return "https://myanimelist.net/anime/" + str(anime_id) + "/" + str(anime_name) + "/reviews?sort=mostvoted&filter_check=&filter_hide=&preliminary=on&spoiler=on&p=" + str(page_num)
 
 def get_reviews(anime_id, anime_name, num_reviews):
-    f = open(str(anime_id) + ".csv", "w")
+    f = open(str(anime_id) + ".csv", "w", encoding = "utf-8")
     data = []
     num_pages = int((num_reviews + 19) / 20)
     column_labels = ["anime_id", "review_text", "review_rating", "author_username"]
@@ -43,6 +43,6 @@ def get_reviews(anime_id, anime_name, num_reviews):
             #print(data_row[1][0])
             data.append(data_row)
     df = pd.DataFrame(data, columns = column_labels)
-    df.to_csv(f, index = False)
+    df.to_csv(f, index = False, errors = "replace")
     f.close()
 
