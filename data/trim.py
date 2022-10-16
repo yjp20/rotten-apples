@@ -1,6 +1,7 @@
 import pandas as pd
 import sys
 import os
+import shutil
 
 #run this script with the arg *.csv in the data directory
 
@@ -12,8 +13,7 @@ def trimReview(filename, newFilename):
 def trim_files():
     for filename in sys.argv[1:]:
         trimReview(filename, "trimmed" + filename)
+        shutil.copy(filename, "copies/")
+        os.remove(filename)
 
-#catenate the trimmed files into single csv
-def cat_trimmed():
-    combined_csv = pd.concat([pd.read_csv(file) for file in sys.argv[1:]])
-    combined_csv.to_csv("finetuning.csv", index=False, encoding='utf-8-sig')
+trim_files()

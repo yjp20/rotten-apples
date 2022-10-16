@@ -23,6 +23,10 @@ inputs = ["aaaa",
 def read_files():
     for urmom in sys.argv[1:]:
             csv_functions.applyReview(urmom, urmom, csv_functions.summarizer, "summarized")
-            csv_functions.applyReview(urmom, urmom, csv_functions.summarizer, "classifier")
+            csv_functions.applyReview(urmom, urmom, csv_functions.classifier, "classifier")
+
+def read_files_individual():
+    csv_functions.applyReview(sys.argv[1], sys.argv[1], csv_functions.summarizer, "summarized")
+    #csv_functions.applyReview(sys.argv[0], sys.argv[0], csv_functions.summarizer, "classifier")
 
 read_files()

@@ -1,7 +1,6 @@
 #call function with arg *.csv
 
 from scrape import *
-import trim
 import pandas as pd
 
 anime_ids = [5114, 9253, 1535, 16498, 30276, 11757, 31964, 38000, 20, 22319, 11061, 19815, 32281, 33486, 25777, 1735, 35760, 4224, 37999, 40748, 1, 22135]
@@ -16,6 +15,4 @@ for a in range(start_index, len(anime_ids)):
     print(anime_ids[a])
     get_reviews(anime_ids[a], anime_names[a], 1000)
     #get_reviews(1, "Cowboy_Bebop", 1000)
-
-trim.trim_files()
-trim.cat_trimmed()
+  
