@@ -1,0 +1,14 @@
+@charset "utf-8";
+$widescreen-enabled: false;
+$fullhd-enabled: false;
+$primary: #0e61a4;
+$family-primary: "CabinetGrotesk-Variable";
+$family-secondary: "CabinetGrotesk-Variable";
+$weight-normal: 700;
+$weight-bold: 900;
+@import "../node_modules/bulma/bulma.sass";
+
+
+.is-family-secondary {
+	font-weight: 900;
+}
