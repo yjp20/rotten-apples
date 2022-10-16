@@ -1,0 +1,6 @@
+import pandas as pd
+
+#trimming the reviews for fine tuning data
+def trimReview(filename, newFilename):
+    df = pd.read_csv(filename, usecols=["review_text", "review_rating"])
+    df.to_csv(newFilename, index = False)

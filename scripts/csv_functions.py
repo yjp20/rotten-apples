@@ -60,7 +60,7 @@ def classifier(sin):
 #opens a csv file
 #creates a new column by applying function func to an existing column
 #creates a new file named newFilename
-def applyReviews(filename, newFilename, func, columnName):
-    df = pd.read_csv(filename, usecols=["review_text", "review_rating"])
+def applyReview(filename, newFilename, func, columnName):
+    df = pd.read_csv(filename)
     df[columnName] = df['review_text'].apply(func)
     df.to_csv(newFilename, index = False)
