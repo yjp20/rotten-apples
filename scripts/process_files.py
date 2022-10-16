@@ -27,12 +27,18 @@ inputs = []
 
 def read_files():
     for urmom in sys.argv[1:]:
-            csv_functions.applyReview(urmom, urmom, csv_functions.summarizer, "summarized")
-            #csv_functions.applyReview(urmom, urmom, csv_functions.classifier, "classifier")
+        csv_functions.applyReview(urmom, urmom, csv_functions.summarizer, "summarized")
+        #csv_functions.applyReview(urmom, urmom, csv_functions.classifier, "classifier")
     df = pd.read_csv("reviews.csv")
     for index, row in df.iterrows():
         #print(index)
         examples.append(Example(row['review_rating'], row['summarized']))
+    for urmom in sys.argv[1:]:
+        df2 = pd.read_csv(urmom)
+        for index, row in df.iterrows():
+            inputs.append(row['summarized'])
+        csv_functions.classifier(urmom, urmom, inputs, examples, "classified")
+        inputs = []
     print(examples)
         
 read_files()

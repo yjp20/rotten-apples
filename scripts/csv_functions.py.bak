@@ -58,14 +58,13 @@ def summarizer(sin, loop=True):
     print(df['generation'].iat[0])
     return df['generation'].iat[0]
     
-#adjuster helper function, returns classified value of sin\
-#not working rn ignore
-def classifier(sin):
+#classifier function
+def classifier(filename, newFilename, ins, exs, columnName):
     print("classifying")
     response = co.classify(
       model='medium',
-      inputs=sin,
-      examples=examples)
+      inputs=ins,
+      examples=exs)
     #fix return value
     print(response.classifications)
     return sin
@@ -78,7 +77,7 @@ def applyReview(filename, newFilename, func, columnName):
     df = pd.read_csv(filename, on_bad_lines='skip')
     df[columnName] = ""
     pool = Pool(15)
-    results = [pool.apply_asyc(func, [row['review_text']]) for idx, row in df.iterrows()]
+    results = [pool.apply_async(func, [row['review_text']]) for idx, row in df.iterrows()]
     for idx, row in df.iterrows():
         df.loc[idx, columnName] = results[idx].get()
     df.to_csv(newFilename, index = False)

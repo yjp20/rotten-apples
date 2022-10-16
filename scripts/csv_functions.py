@@ -26,7 +26,7 @@ def summarizer(sin, loop=True):
         n_generations = 5
 
         prediction = co.generate(
-            model='large',
+            model='68283aef-f7cf-4b9f-8a2c-b638932c8154-ft',
             prompt=sin,
             return_likelihoods = 'GENERATION',
             stop_sequences=['"'],
@@ -58,14 +58,13 @@ def summarizer(sin, loop=True):
     print(df['generation'].iat[0])
     return df['generation'].iat[0]
     
-#adjuster helper function, returns classified value of sin\
-#not working rn ignore
-def classifier(sin):
+#classifier function
+def classifier(filename, newFilename, ins, exs, columnName):
     print("classifying")
     response = co.classify(
-      model='medium',
-      inputs=sin,
-      examples=examples)
+      model='68283aef-f7cf-4b9f-8a2c-b638932c8154-ft',
+      inputs=ins,
+      examples=exs)
     #fix return value
     print(response.classifications)
     return sin
