@@ -8,6 +8,6 @@ def trimReview(filename, newFilename):
 
 def trim_files():
     for filename in sys.argv[1:]:
-        csv_functions.trimReview(filename, "trimmed" + filename)
+        trimReview(filename, "trimmed" + filename)
 
 trim_files()
