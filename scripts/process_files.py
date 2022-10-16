@@ -18,7 +18,7 @@ api_key = "bVBDxyqnmSkyQvWF8JTAm4nb0szv5Cy5gyivcysD"
 co = cohere.Client(api_key)
 examples = []
 inputs = []
-   
+
 
 #summarize all csv files
 #take in example data into examples list
@@ -40,5 +40,6 @@ def read_files():
         csv_functions.classifier(urmom, urmom, inputs, examples, "classified")
         inputs = []
     print(examples)
-        
-read_files()
+
+if __name__ == '__main__':
+    read_files()

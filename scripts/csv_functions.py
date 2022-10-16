@@ -14,13 +14,12 @@ import pandas as pd
 
 api_key = "bVBDxyqnmSkyQvWF8JTAm4nb0szv5Cy5gyivcysD"
 co = cohere.Client(api_key)
-examples = [Example("1", "hello"), 
-    Example("2", "hello"), Example("3", "hi"), Example("4", "hi")]
-blah = ["aaaa",
-    "bbbb"]
-    
+examples = [Example("1", "hello"), Example("2", "hello"), Example("3", "hi"), Example("4", "hi")]
+
 #helper function to summarize sin, returns 0th value of generation column
-def summarizer(sin, loop=True):
+def summarizer(inp, loop=True):
+    idx, row = inp
+    sin = row['review_text']
     try:
         sin = sin[:100]
         n_generations = 5
@@ -44,7 +43,6 @@ def summarizer(sin, loop=True):
             for t in gen.token_likelihoods:
                 sum_likelihood += t.likelihood
             likelihoods.append(sum_likelihood)
-                    
         pd.options.display.max_colwidth = 200
         df = pd.DataFrame({'generation':gens, 'likelihood': likelihoods})
         df = df.drop_duplicates(subset=['generation'])
@@ -52,12 +50,12 @@ def summarizer(sin, loop=True):
     except Exception as err:
         print(err)
         if loop:
-            return summarizer(sin, false)
+            return summarizer(row, false)
         else:
             return 0
     print(df['generation'].iat[0])
     return df['generation'].iat[0]
-    
+
 #classifier function
 def classifier(filename, newFilename, ins, exs, columnName):
     print("classifying")
@@ -77,7 +75,7 @@ def applyReview(filename, newFilename, func, columnName):
     df = pd.read_csv(filename, on_bad_lines='skip')
     df[columnName] = ""
     pool = Pool(15)
-    results = [pool.apply_async(func, [row['review_text']]) for idx, row in df.iterrows()]
+    results = pool.map(func, df.iterrows())
     for idx, row in df.iterrows():
-        df.loc[idx, columnName] = results[idx].get()
+        df.loc[idx, columnName] = results[idx]
     df.to_csv(newFilename, index = False)
